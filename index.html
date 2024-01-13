@@ -42,22 +42,123 @@
         <h2>Пак монеток 100</h2>
         <img src="coin_pack1.jpg" alt="Пак монеток">
         <button class="buy-button">Купить</button>
+        <span class="quantity" hidden>0</span>
+        <button class="plus" hidden>+</button>
+        <button class="minus" hidden>-</button>
     </div>
     <div class="product">
         <h2>Пак монеток 200</h2>
         <img src="coin_pack2.jpg" alt="Пак монеток">
         <button class="buy-button">Купить</button>
+        <span class="quantity" hidden>0</span>
+        <button class="plus" hidden>+</button>
+        <button class="minus" hidden>-</button>
     </div>
     <div class="product">
         <h2>Пак монеток 300</h2>
         <img src="coin_pack3.jpg" alt="Пак монеток">
         <button class="buy-button">Купить</button>
+        <span class="quantity" hidden>0</span>
+        <button class="plus" hidden>+</button>
+        <button class="minus" hidden>-</button>
     </div>
     <div class="product">
         <h2>Пак монеток 400</h2>
         <img src="coin_pack4.jpg" alt="Пак монеток">
         <button class="buy-button">Купить</button>
+        <span class="quantity" hidden>0</span>
+        <button class="plus" hidden>+</button>
+        <button class="minus" hidden>-</button>
+    </div>
+    <button id="order" hidden style="background: green; color: white; padding: 20px 40px; font-size: 20px;">Оформить заказ</button>
+    <div id="checkout" class="hidden">
+        <h1>Оформление заказа</h1>
+        <form>
+            <label for="name">Имя</label>
+            <input id="name" type="text" required>
+            <label for="surname">Фамилия</label>
+            <input id="surname" type="text" required>
+            <label for="email">Email</label>
+            <input id="email" type="email" required>
+            <label for="phone">Номер телефона</label>
+            <input id="phone" type="tel" required>
+            <button id="submit" style="background: green; color: white; padding: 10px 20px;">Оформить</button>
+        </form>
     </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        let products = document.getElementsByClassName("product");
+        let order = document.getElementById("order");
+        let checkout = document.getElementById("checkout");
+        let submit = document.getElementById("submit");
+
+        function toggle(element) {
+            if (element.hidden) {
+                element.hidden = false;
+            } else {
+                element.hidden = true;
+            }
+        }
+
+        function updateOrder() {
+            let total = 0;
+            for (let product of products) {
+                let quantity = product.getElementsByClassName("quantity")[0];
+                total += parseInt(quantity.textContent);
+            }
+            if (total > 0) {
+                order.hidden = false;
+            } else {
+                order.hidden = true;
+            }
+        }
+
+        for (let product of products) {
+            let buy = product.getElementsByClassName("buy-button")[0];
+            let quantity = product.getElementsByClassName("quantity")[0];
+            let plus = product.getElementsByClassName("plus")[0];
+            let minus = product.getElementsByClassName("minus")[0];
+
+            buy.addEventListener("click", () => {
+                toggle(buy);
+                toggle(quantity);
+                toggle(plus);
+                toggle(minus);
+                quantity.textContent = "1";
+                updateOrder();
+            });
+
+            plus.addEventListener("click", () => {
+                quantity.textContent = (parseInt(quantity.textContent) + 1).toString();
+                updateOrder();
+            });
+
+            minus.addEventListener("click", () => {
+                let count = parseInt(quantity.textContent);
+                if (count > 1) {
+                    quantity.textContent = (count - 1).toString();
+                } else {
+                    toggle(buy);
+                    toggle(quantity);
+                    toggle(plus);
+                    toggle(minus);
+                    quantity.textContent = "0";
+                }
+                updateOrder();
+            });
+        }
+
+        order.addEventListener("click", () => {
+            toggle(order);
+            for (let product of products) {
+                toggle(product);
+            }
+            toggle(checkout);
+        });
+
+        submit.addEventListener("click", () => {
+            alert("Ваш заказ успешно оформлен!");
+        });
+    </script>
 </body>
 </html>
