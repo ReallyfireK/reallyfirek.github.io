@@ -152,12 +152,13 @@
         }
 
         order.addEventListener("click", () => {
+            document.getElementById("name").value = tg.initDataUnsafe.user.first_name
+            document.getElementById("surname").value = tg.initDataUnsafe.user.last_name
             toggle(order);
             for (let product of products) {
                 toggle(product);
             }
-            document.getElementById("name").value = tg.initDataUnsafe.user.first_name
-            document.getElementById("surname").value = tg.initDataUnsafe.user.last_name
+            
             checkout.style.display = "block";
         });
 
