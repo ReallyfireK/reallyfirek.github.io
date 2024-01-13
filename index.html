@@ -35,6 +35,9 @@
             margin: 10px 2px;
             cursor: pointer;
         }
+        #checkout {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +74,7 @@
         <button class="minus" hidden>-</button>
     </div>
     <button id="order" hidden style="background: green; color: white; padding: 20px 40px; font-size: 20px;">Оформить заказ</button>
-    <div id="checkout" class="hidden">
+    <div id="checkout">
         <h1>Оформление заказа</h1>
         <form>
             <label for="name">Имя</label>
@@ -153,7 +156,7 @@
             for (let product of products) {
                 toggle(product);
             }
-            toggle(checkout);
+            checkout.style.display = "block";
         });
 
         submit.addEventListener("click", () => {
