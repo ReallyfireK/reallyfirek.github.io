@@ -94,7 +94,7 @@
         let order = document.getElementById("order");
         let checkout = document.getElementById("checkout");
         let submit = document.getElementById("submit");
-
+        tg.expand();
         function toggle(element) {
             if (element.hidden) {
                 element.hidden = false;
@@ -156,6 +156,8 @@
             for (let product of products) {
                 toggle(product);
             }
+            document.getElementById("name").value = tg.initDataUnsafe.user.first_name
+            document.getElementById("surname").value = tg.initDataUnsafe.user.last_name
             checkout.style.display = "block";
         });
 
